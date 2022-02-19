@@ -1,0 +1,23 @@
+{
+  "name": "ts-clean-api",
+  "version": "1.0.0",
+  "description": "trying node typescript clean architecture",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kdhttps/node-ts-clean-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kdhttps/node-ts-clean-api/issues"
+  },
+  "homepage": "https://github.com/kdhttps/node-ts-clean-api#readme",
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
+}
