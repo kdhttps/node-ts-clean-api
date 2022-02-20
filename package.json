@@ -7,9 +7,9 @@
     "test": "jest",
     "test:unit": "jest -c jest-unit-config.js"
   },
-  "standard": {
-    "env": [
-      "jest"
+  "ts-standard": {
+    "ignore": [
+      "dist"
     ]
   },
   "repository": {
@@ -28,7 +28,7 @@
   "devDependencies": {
     "@types/jest": "^27.4.0",
     "jest": "^27.5.1",
-    "standard": "^16.0.4",
+    "ts-standard": "^11.0.0",
     "typescript": "^4.5.5"
   }
 }
