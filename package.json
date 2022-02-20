@@ -1,23 +1,34 @@
 {
   "name": "ts-clean-api",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "trying node typescript clean architecture",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:unit": "jest -c jest-unit-config.js"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kdhttps/node-ts-clean-api.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "cleancode"
+  ],
+  "author": "kdhttps",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kdhttps/node-ts-clean-api/issues"
   },
   "homepage": "https://github.com/kdhttps/node-ts-clean-api#readme",
   "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "jest": "^27.5.1",
+    "standard": "^16.0.4",
     "typescript": "^4.5.5"
   }
 }
