@@ -1,12 +1,12 @@
 export interface IAuthentication {
-  auth: (authParams: AuthenticationParams) => Promise<AuthenticationResult>
+  auth: (authParams: TAuthenticationParams) => Promise<TAuthenticationResult>
 }
 
-export interface AuthenticationParams {
+export interface TAuthenticationParams {
   email: string
   password: string
 }
 
-export interface AuthenticationResult {
+export interface TAuthenticationResult {
   accessToken: string
 }
