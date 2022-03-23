@@ -1,4 +1,5 @@
 import { TAuthenticationParams, TAuthenticationResult, IAuthentication } from '@/domain/usecases/i-authentication'
+import { ILoadAccountByEmail } from '@/controller/protocols/db/i-load-account-by-email'
 
 export class Authentication implements IAuthentication {
   constructor (
