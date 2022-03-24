@@ -66,4 +66,10 @@ describe('Authentication usecase', () => {
     expect(hashComparer.password).toBe(authParams.password)
     expect(hashComparer.hashedPassword).toBe('valid@123')
   })
+
+  test('Should throw if HashComparer throws', async () => {
+    const { sut, authParams, hashComparer } = makeSUT()
+    jest.spyOn(hashComparer, 'compare').mockImplementationOnce(throwError)
+    await expect(sut.auth(authParams)).rejects.toThrow()
+  })
 })
