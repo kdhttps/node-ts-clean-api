@@ -2,19 +2,34 @@ import { TAuthenticationParams } from '@/domain/usecases/i-authentication'
 import { Authentication } from '@/controller/usecases'
 import { throwError } from '@/tests/domain/test-helpers'
 import { LoadAccountByEmailSpy } from '@/tests/controller/mocks'
+import { IHashComparer } from '@/controller/protocols/cryptography/i-hash-comparer'
+
+class HashComparerSpy implements IHashComparer {
+  password: string = ''
+  hashedPassword: string = ''
+  isOk: boolean = true
+
+  async compare (password: string, hashedPassword: string): Promise<boolean> {
+    this.password = password
+    this.hashedPassword = hashedPassword
+    return this.isOk
+  }
+}
 
 const makeSUT = (): any => {
   const authParams: TAuthenticationParams = {
     email: 'valid@email.com',
-    password: '123'
+    password: 'valid@123'
   }
   const loadAccountByEmail = new LoadAccountByEmailSpy()
-  const sut = new Authentication(loadAccountByEmail)
+  const hashComparer = new HashComparerSpy()
+  const sut = new Authentication(loadAccountByEmail, hashComparer)
 
   return {
     sut,
     loadAccountByEmail,
-    authParams
+    authParams,
+    hashComparer
   }
 }
 
@@ -43,5 +58,12 @@ describe('Authentication usecase', () => {
     loadAccountByEmail.result = undefined
     const token = await sut.auth(authParams)
     expect(token).toBeNull()
+  })
+
+  test('Should call HashComparer with correct values', async () => {
+    const { sut, authParams, hashComparer } = makeSUT()
+    await sut.auth(authParams)
+    expect(hashComparer.password).toBe(authParams.password)
+    expect(hashComparer.hashedPassword).toBe('valid@123')
   })
 })
