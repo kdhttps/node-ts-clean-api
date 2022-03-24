@@ -7,12 +7,12 @@ import { IHashComparer } from '@/controller/protocols/cryptography/i-hash-compar
 class HashComparerSpy implements IHashComparer {
   password: string = ''
   hashedPassword: string = ''
-  isOk: boolean = true
+  isPasswordValid: boolean = true
 
   async compare (password: string, hashedPassword: string): Promise<boolean> {
     this.password = password
     this.hashedPassword = hashedPassword
-    return this.isOk
+    return this.isPasswordValid
   }
 }
 
@@ -71,5 +71,12 @@ describe('Authentication usecase', () => {
     const { sut, authParams, hashComparer } = makeSUT()
     jest.spyOn(hashComparer, 'compare').mockImplementationOnce(throwError)
     await expect(sut.auth(authParams)).rejects.toThrow()
+  })
+
+  test('Should return null if HashComparer returns false', async () => {
+    const { sut, authParams, hashComparer } = makeSUT()
+    hashComparer.isPasswordValid = false
+    const token = await sut.auth(authParams)
+    expect(token).toBeNull()
   })
 })

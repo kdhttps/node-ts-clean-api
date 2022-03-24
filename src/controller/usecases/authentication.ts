@@ -14,7 +14,11 @@ export class Authentication implements IAuthentication {
       return null as any
     }
 
-    await this.hashComparer.compare(account.password, authParams.password)
+    const isPasswordValid = await this.hashComparer.compare(account.password, authParams.password)
+    if (!isPasswordValid) {
+      return null as any
+    }
+
     return { accessToken: 'test' }
   }
 }
