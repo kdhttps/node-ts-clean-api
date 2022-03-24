@@ -61,10 +61,10 @@ describe('Authentication usecase', () => {
   })
 
   test('Should call HashComparer with correct values', async () => {
-    const { sut, authParams, hashComparer } = makeSUT()
+    const { sut, authParams, hashComparer, loadAccountByEmail } = makeSUT()
     await sut.auth(authParams)
     expect(hashComparer.password).toBe(authParams.password)
-    expect(hashComparer.hashedPassword).toBe('valid@123')
+    expect(hashComparer.hashedPassword).toBe(loadAccountByEmail.result.password)
   })
 
   test('Should throw if HashComparer throws', async () => {
