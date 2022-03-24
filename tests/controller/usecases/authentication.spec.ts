@@ -1,20 +1,7 @@
 import { TAuthenticationParams } from '@/domain/usecases/i-authentication'
 import { Authentication } from '@/controller/usecases'
 import { throwError } from '@/tests/domain/test-helpers'
-import { LoadAccountByEmailSpy } from '@/tests/controller/mocks'
-import { IHashComparer } from '@/controller/protocols/cryptography/i-hash-comparer'
-
-class HashComparerSpy implements IHashComparer {
-  password: string = ''
-  hashedPassword: string = ''
-  isPasswordValid: boolean = true
-
-  async compare (password: string, hashedPassword: string): Promise<boolean> {
-    this.password = password
-    this.hashedPassword = hashedPassword
-    return this.isPasswordValid
-  }
-}
+import { HashComparerSpy, LoadAccountByEmailSpy } from '@/tests/controller/mocks'
 
 const makeSUT = (): any => {
   const authParams: TAuthenticationParams = {
