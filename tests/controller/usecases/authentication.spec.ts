@@ -3,26 +3,31 @@ import { Authentication } from '@/controller/usecases'
 import { throwError } from '@/tests/domain/test-helpers'
 import { LoadAccountByEmailSpy } from '@/tests/controller/mocks'
 
+const makeSUT = (): any => {
+  const authParams: TAuthenticationParams = {
+    email: 'valid@email.com',
+    password: '123'
+  }
+  const loadAccountByEmail = new LoadAccountByEmailSpy()
+  const sut = new Authentication(loadAccountByEmail)
+
+  return {
+    sut,
+    loadAccountByEmail,
+    authParams
+  }
+}
+
 describe('Authentication usecase', () => {
   test('Should call LoadAccountByEmail repository with correct email', async () => {
-    const authParams: TAuthenticationParams = {
-      email: 'valid@email.com',
-      password: '123'
-    }
-    const loadAccountbyEmail = new LoadAccountByEmailSpy()
-    const sut = new Authentication(loadAccountbyEmail)
+    const { sut, authParams, loadAccountByEmail } = makeSUT()
     await sut.auth(authParams)
-    expect(loadAccountbyEmail.email).toBe(authParams.email)
+    expect(loadAccountByEmail.email).toBe(authParams.email)
   })
 
   test('Should throw if LoadAccountByEmail repository throws', async () => {
-    const authParams: TAuthenticationParams = {
-      email: 'valid@email.com',
-      password: '123'
-    }
-    const loadAccountbyEmail = new LoadAccountByEmailSpy()
-    jest.spyOn(loadAccountbyEmail, 'get').mockImplementationOnce(throwError)
-    const sut = new Authentication(loadAccountbyEmail)
+    const { sut, authParams, loadAccountByEmail } = makeSUT()
+    jest.spyOn(loadAccountByEmail, 'get').mockImplementationOnce(throwError)
     await expect(sut.auth(authParams)).rejects.toThrow()
   })
 })
