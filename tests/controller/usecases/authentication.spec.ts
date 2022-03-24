@@ -30,4 +30,18 @@ describe('Authentication usecase', () => {
     jest.spyOn(loadAccountByEmail, 'get').mockImplementationOnce(throwError)
     await expect(sut.auth(authParams)).rejects.toThrow()
   })
+
+  test('Should return null if LoadAccountByEmail repository returns null', async () => {
+    const { sut, authParams, loadAccountByEmail } = makeSUT()
+    loadAccountByEmail.result = null
+    const token = await sut.auth(authParams)
+    expect(token).toBeNull()
+  })
+
+  test('Should return null if LoadAccountByEmail repository returns undefined', async () => {
+    const { sut, authParams, loadAccountByEmail } = makeSUT()
+    loadAccountByEmail.result = undefined
+    const token = await sut.auth(authParams)
+    expect(token).toBeNull()
+  })
 })

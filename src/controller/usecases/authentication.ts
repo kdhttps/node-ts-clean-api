@@ -7,7 +7,11 @@ export class Authentication implements IAuthentication {
   ) {}
 
   async auth (authParams: TAuthenticationParams): Promise<TAuthenticationResult> {
-    await this.loadAccountByEmail.get(authParams.email)
+    const account = await this.loadAccountByEmail.get(authParams.email)
+    if (account == null || account === undefined) {
+      return null as any
+    }
+
     return { accessToken: 'test' }
   }
 }
