@@ -1,4 +1,7 @@
-import { ILoadAccountByEmail, TLoadAccountByEmailResult } from '@/controller/protocols/db/i-load-account-by-email'
+import {
+  ILoadAccountByEmail,
+  TLoadAccountByEmailResult
+} from '@/controller/protocols/db/i-load-account-by-email'
 
 export class LoadAccountByEmailSpy implements ILoadAccountByEmail {
   email: string = ''
@@ -8,7 +11,7 @@ export class LoadAccountByEmailSpy implements ILoadAccountByEmail {
     password: 'valid@123'
   }
 
-  async get (email: string): Promise<TLoadAccountByEmailResult> {
+  async get(email: string): Promise<TLoadAccountByEmailResult> {
     this.email = email
     return this.result
   }

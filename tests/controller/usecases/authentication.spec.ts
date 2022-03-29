@@ -1,7 +1,10 @@
 import { TAuthenticationParams } from '@/domain/usecases/i-authentication'
 import { Authentication } from '@/controller/usecases'
 import { throwError } from '@/tests/domain/test-helpers'
-import { HashComparerSpy, LoadAccountByEmailSpy } from '@/tests/controller/mocks'
+import {
+  HashComparerSpy,
+  LoadAccountByEmailSpy
+} from '@/tests/controller/mocks'
 
 const makeSUT = (): any => {
   const authParams: TAuthenticationParams = {

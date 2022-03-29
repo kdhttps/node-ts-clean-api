@@ -5,7 +5,7 @@ export class HashComparerSpy implements IHashComparer {
   hashedPassword: string = ''
   isPasswordValid: boolean = true
 
-  async compare (password: string, hashedPassword: string): Promise<boolean> {
+  async compare(password: string, hashedPassword: string): Promise<boolean> {
     this.password = password
     this.hashedPassword = hashedPassword
     return this.isPasswordValid
